@@ -1,4 +1,5 @@
 # Importing requried modules
+from cv2 import accumulate
 import maskpass, os, numpy
 from termcolor import cprint
 
@@ -58,9 +59,15 @@ def mathResults(operator : str, mathEquation : str):
         return sum(mathEquation)
     elif operator == '*':
         return numpy.prod(mathEquation)
-
+    elif operator == '-':
+        accumulate = 0
+        for i in mathEquation:
+            accumulate -= i
+        return accumulate
+        
 math_equation = '1 + 2'
 math_equation1 = '5 * 2'
+math_equation2 = '3 - 2 - 1'
 print(mathResults(firgureMath(math_equation), math_equation))
 print(mathResults(firgureMath(math_equation1), math_equation1))
-
+print(mathResults(firgureMath(math_equation2), math_equation2))
