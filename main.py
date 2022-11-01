@@ -1,16 +1,19 @@
 # Importing requried modules
-import maskpass, os, numpy
+import os
+import maskpass
+import numpy
 from termcolor import cprint
+
 # Different OS use different commands to clear the screen, linux:clear win:cls
-clear_screen = 'clear'
+clear_screen = 'cls'
 
 # Defining The Correct Password and The Password Attempt amount
-correct_password = 'lemon'
-password_attempt = 6
+correct_password = 'password1'
+password_attempt = 11
 
 
 # Clearing the Screen
-os.system(clear_screen)
+os.system(CLEAR_SCREEN)
 
 # Defining password loop
 while True:
@@ -22,18 +25,19 @@ while True:
         cprint('[*]Password: ', 'blue', end="")
         password_input = maskpass.askpass(prompt="", mask="*")
 
+
         # Checking if password is the correct password, if so we break from loop
-        if password_input == correct_password:
+        if check_user(password_input):
             break
 
         # Else, we subtract one from their attempts , and print it to the user
-        password_attempt -= 1
+        PASSWORD_ATTEMPT -= 1
         cprint(
-            f'[-] Wrong password, you have {password_attempt} remaining', 'red')
+            f'[-] Wrong password, you have {PASSWORD_ATTEMPT} remaining', 'red')
 
         # If the user has run out of password attempts then we clear the screen and quit the program
-        if password_attempt == 0:
-            os.system(clear_screen)
+        if PASSWORD_ATTEMPT == 0:
+            os.system(CLEAR_SCREEN)
             cprint('[-] You have run out of password attempt, goodbye', 'red')
             exit()
 
@@ -48,9 +52,9 @@ def firgureMath(mathEquation):
     mathOper = ['+', '-', '/', '*']
     for index in mathOper:
         if index in mathEquation:
-            return index 
+            return index
 
-def mathResults(operator : str, mathEquation : str): 
+def mathResults(operator : str, mathEquation : str):
     mathEquation=mathEquation.split(operator)
     mathEquation = [ int(x) for x in mathEquation ]
     if operator == '+':
@@ -63,7 +67,7 @@ def mathResults(operator : str, mathEquation : str):
             accumulate -= i
         return accumulate
     elif operator == '/':
-        
+
         accumulate = mathEquation[0] / mathEquation[1]
         if len(mathEquation) == 2:
             return accumulate
