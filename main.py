@@ -1,8 +1,5 @@
 # Importing requried modules
-import json
-import requests
-import maskpass
-import os
+import maskpass, os, numpy
 from termcolor import cprint
 
 # Different OS use different commands to clear the screen, linux:clear win:cls
@@ -11,7 +8,7 @@ clear_screen = 'cls'
 # Defining The Correct Password and The Password Attempt amount
 correct_password = 'password1'
 password_attempt = 11
-API_KEY = 'K83002919388957'
+
 
 # Clearing the Screen
 os.system(clear_screen)
@@ -47,19 +44,23 @@ while True:
         cprint("[!] Nice try, it won't be that easy", 'red')
         continue
 
+def firgureMath(mathEquation):
+    """A simple way to firgure what math equal needs to be done"""
+    mathOper = ['+', '-', '/', '*']
+    for index in mathOper:
+        if index in mathEquation:
+            return index 
 
-def ocr_space_file(filename, overlay=True, api_key=API_KEY, language='eng'):
-    """Function to use OCR Space's API"""
-    payload = {'isOverlayRequired': overlay,
-               'apikey': api_key,
-               'language': language,
-               }
-    with open(filename, 'rb') as f:
-        r = requests.post('https://api.ocr.space/parse/image',
-                          files={filename: f}, data=payload)
-    m = r.content.decode()
-    jsonstr = json.loads(m)
-    print(jsonstr["ParsedResults"][0]["ParsedText"])
+def mathResults(operator : str, mathEquation : str): 
+    mathEquation=mathEquation.split(operator)
+    mathEquation = [ int(x) for x in mathEquation ]
+    if operator == '+':
+        return sum(mathEquation)
+    elif operator == '*':
+        return numpy.prod(mathEquation)
 
+math_equation = '1 + 2'
+math_equation1 = '5 * 2'
+print(mathResults(firgureMath(math_equation), math_equation))
+print(mathResults(firgureMath(math_equation1), math_equation1))
 
-ocr_space_file(filename='exam.jpg', language='eng')
