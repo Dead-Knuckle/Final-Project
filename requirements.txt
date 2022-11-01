@@ -1,0 +1,3 @@
+maskpass
+PyPDF2 
+asprise_ocr_sdk_python_api 
