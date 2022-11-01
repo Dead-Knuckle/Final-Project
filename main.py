@@ -1,13 +1,12 @@
 # Importing requried modules
 import maskpass, os, numpy
 from termcolor import cprint
-
 # Different OS use different commands to clear the screen, linux:clear win:cls
-clear_screen = 'cls'
+clear_screen = 'clear'
 
 # Defining The Correct Password and The Password Attempt amount
-correct_password = 'password1'
-password_attempt = 11
+correct_password = 'lemon'
+password_attempt = 6
 
 
 # Clearing the Screen
@@ -41,7 +40,7 @@ while True:
     except KeyboardInterrupt:
 
         # A taunting message is displayed if the user tries to use KeyboardInterrupt, and the loop continues
-        cprint("[!] Nice try, it won't be that easy", 'red')
+        cprint("\n[!] Nice try, it won't be that easy", 'red')
         continue
 
 def firgureMath(mathEquation):
@@ -72,11 +71,7 @@ def mathResults(operator : str, mathEquation : str):
             for i in range(2, len(mathEquation)):
                 accumulate /= mathEquation[i]
             return accumulate
-math_equation_add = '1 + 2'
-math_equation_product = '5 * 2'
-math_equation_subtraction = '3 - 2 - 1'
-math_equation_division = '25 / 5'
-print(mathResults(firgureMath(math_equation_add), math_equation_add))
-print(mathResults(firgureMath(math_equation_product), math_equation_product))
-print(mathResults(firgureMath(math_equation_subtraction), math_equation_subtraction))
-print(mathResults(firgureMath(math_equation_division), math_equation_division))
+math_equation_problem = ['1 + 2', '5 * 2', '3 - 2 - 1', '25/5/ 5', '23/5']
+for math_equation in math_equation_problem:
+    cprint(f'[*]Problem: {math_equation}', 'blue')
+    cprint(f'[+]Results:{mathResults(firgureMath(math_equation), math_equation)}\n\n', 'green')
