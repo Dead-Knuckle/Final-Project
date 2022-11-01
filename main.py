@@ -1,4 +1,5 @@
 # Importing requried modules
+import math
 from cv2 import accumulate
 import maskpass, os, numpy
 from termcolor import cprint
@@ -64,10 +65,20 @@ def mathResults(operator : str, mathEquation : str):
         for i in mathEquation:
             accumulate -= i
         return accumulate
+    elif operator == '/':
         
-math_equation = '1 + 2'
-math_equation1 = '5 * 2'
-math_equation2 = '3 - 2 - 1'
-print(mathResults(firgureMath(math_equation), math_equation))
-print(mathResults(firgureMath(math_equation1), math_equation1))
-print(mathResults(firgureMath(math_equation2), math_equation2))
+        accumulate = mathEquation[0] / mathEquation[1]
+        if len(mathEquation) == 2:
+            return accumulate
+        else:
+            for i in range(2, len(mathEquation)):
+                accumulate /= mathEquation[i]
+            return accumulate
+math_equation_add = '1 + 2'
+math_equation_product = '5 * 2'
+math_equation_subtraction = '3 - 2 - 1'
+math_equation_division = '25 / 5'
+print(mathResults(firgureMath(math_equation_add), math_equation_add))
+print(mathResults(firgureMath(math_equation_product), math_equation_product))
+print(mathResults(firgureMath(math_equation_subtraction), math_equation_subtraction))
+print(mathResults(firgureMath(math_equation_division), math_equation_division))
