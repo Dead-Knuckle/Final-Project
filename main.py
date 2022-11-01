@@ -4,30 +4,26 @@ import maskpass
 import numpy
 from termcolor import cprint
 from cryptography.fernet import Fernet
-
 # Different OS use different commands to clear the screen, linux:clear win:cls
 CLEAR_SCREEN = 'cls'
 
 # Defining The Correct Password and The Password Attempt amount
-correct_password = 'password1'  # Need to remove.  Not used anymore.
+correct_password = 'password1'
 PASSWORD_ATTEMPT = 11
 
-# Function to check if the Users password is correct
 
-
-def check_user(passwd):
-    """Check passwords in file for match"""
+def checkUser(passwd):
     # Opening the file that contains username, encrypted password, and keys in a Read Only state.
-    passwdfile = open('./passwd.txt', 'r', encoding='utf-8')
+    passwdFile = open('./passwd.txt', 'r', encoding='utf-8')
     # Use a for loop to itterate through each line in the password file.
-    for line in passwdfile:
+    for line in passwdFile:
         # Using a colon : to sperate username, encrypted password and key in the password file.
         # Splitting each line on that delimiter.
-        passwordlineread = line.split(':')
+        passwordLineRead = line.split(':')
         # Reading in the key for the current line
-        fernet = Fernet(passwordlineread[2].encode())
+        fernet = Fernet(passwordLineRead[2].encode())
         # Will return True if the decrypted password and the password the user put in match.
-        if fernet.decrypt(passwordlineread[1].encode()) == passwd.encode():
+        if fernet.decrypt(passwordLineRead[1].encode()) == passwd.encode():
             return True
     # For security, we return False if the bool expression never matches True.
     return False
@@ -47,7 +43,7 @@ while True:
         password_input = maskpass.askpass(prompt="", mask="*")
 
         # Checking if password is the correct password, if so we break from loop
-        if check_user(password_input):
+        if checkUser(password_input):
             break
 
         # Else, we subtract one from their attempts , and print it to the user
