@@ -1,17 +1,37 @@
 # Importing requried modules
-import maskpass, os, numpy
+import os
+import maskpass
+import numpy
 from termcolor import cprint
+from cryptography.fernet import Fernet
 
 # Different OS use different commands to clear the screen, linux:clear win:cls
-clear_screen = 'cls'
+CLEAR_SCREEN = 'cls'
 
 # Defining The Correct Password and The Password Attempt amount
-correct_password = 'password1'
-password_attempt = 11
+PASSWORD_ATTEMPT = 11
+
+# Function to check if the Users password is correct
+def check_user(passwd):
+    """Check passwords in file for match"""
+    # Opening the file that contains username, encrypted password, and keys in a Read Only state.
+    passwdfile = open('./passwd.txt', 'r', encoding='utf-8')
+    # Use a for loop to itterate through each line in the password file.
+    for line in passwdfile:
+        # Using a colon : to sperate username, encrypted password and key in the password file.
+        # Splitting each line on that delimiter.
+        passwordlineread = line.split(':')
+        # Reading in the key for the current line
+        fernet = Fernet(passwordlineread[2].encode())
+        # Will return True if the decrypted password and the password the user put in match.
+        if fernet.decrypt(passwordlineread[1].encode()) == passwd.encode():
+            return True
+    # For security, we return False if the bool expression never matches True.
+    return False
 
 
 # Clearing the Screen
-os.system(clear_screen)
+os.system(CLEAR_SCREEN)
 
 # Defining password loop
 while True:
@@ -23,18 +43,19 @@ while True:
         cprint('[*]Password: ', 'blue', end="")
         password_input = maskpass.askpass(prompt="", mask="*")
 
+
         # Checking if password is the correct password, if so we break from loop
-        if password_input == correct_password:
+        if check_user(password_input):
             break
 
         # Else, we subtract one from their attempts , and print it to the user
-        password_attempt -= 1
+        PASSWORD_ATTEMPT -= 1
         cprint(
-            f'[-] Wrong password, you have {password_attempt} remaining', 'red')
+            f'[-] Wrong password, you have {PASSWORD_ATTEMPT} remaining', 'red')
 
         # If the user has run out of password attempts then we clear the screen and quit the program
-        if password_attempt == 0:
-            os.system(clear_screen)
+        if PASSWORD_ATTEMPT == 0:
+            os.system(CLEAR_SCREEN)
             cprint('[-] You have run out of password attempt, goodbye', 'red')
             exit()
 
@@ -49,9 +70,9 @@ def firgureMath(mathEquation):
     mathOper = ['+', '-', '/', '*']
     for index in mathOper:
         if index in mathEquation:
-            return index 
+            return index
 
-def mathResults(operator : str, mathEquation : str): 
+def mathResults(operator : str, mathEquation : str):
     mathEquation=mathEquation.split(operator)
     mathEquation = [ int(x) for x in mathEquation ]
     if operator == '+':
@@ -64,7 +85,7 @@ def mathResults(operator : str, mathEquation : str):
             accumulate -= i
         return accumulate
     elif operator == '/':
-        
+
         accumulate = mathEquation[0] / mathEquation[1]
         if len(mathEquation) == 2:
             return accumulate
