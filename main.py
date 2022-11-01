@@ -1,6 +1,4 @@
 # Importing requried modules
-import math
-from cv2 import accumulate
 import maskpass, os, numpy
 from termcolor import cprint
 
