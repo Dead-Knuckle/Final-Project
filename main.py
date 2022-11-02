@@ -46,8 +46,8 @@ def mathResults(operator: str, mathEquation: str):
     elif operator == '*':
         return numpy.prod(mathEquation)
     elif operator == '-':
-        accumulate = 0
-        for i in mathEquation:
+        accumulate = mathEquation[0]
+        for i in range(1,len(mathEquation)):
             accumulate -= i
         return accumulate
     elif operator == '/':
