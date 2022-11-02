@@ -6,7 +6,7 @@ import numpy
 from termcolor import cprint
 from cryptography.fernet import Fernet
 # Different OS use different commands to clear the screen, linux:clear win:cls
-CLEAR_SCREEN = 'clear'
+CLEAR_SCREEN = 'cls'
 
 # Defining The Correct Password and The Password Attempt amount
 correct_password = 'password1'  # Need to remove.  Not used anymore.
@@ -76,12 +76,18 @@ while True:
 
         # Checking if password is the correct password, if so we break from loop
         if checkUser(password_input):
-            math_equation_problem = ['1 + 2', '5 * 2',
-                                     '3 - 2 - 1', '25/5/ 5', '23/5']
-            for math_equation in math_equation_problem:
-                cprint(f'[*]Problem: {math_equation}', 'blue')
-                cprint(
-                    f'[+]Results:{mathResults(firgureMath(math_equation), math_equation)}\n\n', 'green')
+            # math_equation_problem = ['1 + 2', '5 * 2',
+            #                          '3 - 2 - 1', '25/5/ 5', '23/5']
+                cprint(f'[+]Welcome User', 'green')
+                f = open("quiz.txt", "r",  encoding='utf-8-sig')
+                quizFile =f.readlines()
+                print(f.read())
+                for math_equation in quizFile:
+                    if math_equation =="\n":
+                        continue
+                    cprint(f'[*]Problem: {math_equation}', 'blue')
+                    cprint(f'[+]Results:{mathResults(firgureMath(math_equation), math_equation)}\n\n', 'green')
+
 
         # Else, we subtract one from their attempts , and print it to the user
         else:
