@@ -75,7 +75,7 @@ while True:
         password_input = maskpass.askpass(prompt="", mask="*")
 
         # Checking if password is the correct password, if so we break from loop
-        if check_user(password_input):
+        if checkUser(password_input):
             math_equation_problem = ['1 + 2', '5 * 2',
                                      '3 - 2 - 1', '25/5/ 5', '23/5']
             for math_equation in math_equation_problem:
