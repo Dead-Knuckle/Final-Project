@@ -1,0 +1,31 @@
+﻿Math Equation:87/12/4
+
+Math Results:1.8125
+
+Math Equation:67/33
+
+Math Results:2.0303030303030303
+
+Math Equation:29*2*3
+
+Math Results:174
+
+Math Equation:48*12
+
+Math Results:576
+
+Math Equation:53 + 40 + 60
+
+Math Results:153
+
+Math Equation:12 + 13
+
+Math Results:25
+
+Math Equation:32-78-42-33
+
+Math Results:26
+
+Math Equation:12/3
+Math Results:4.0
+

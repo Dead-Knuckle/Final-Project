@@ -30,15 +30,26 @@ while True:
             # math_equation_problem = ['1 + 2', '5 * 2',
             #                          '3 - 2 - 1', '25/5/ 5', '23/5']
                 cprint(f'[+]Welcome User', 'green')
+                cprint('[*]Please input your email below for easy copy & paste ', 'blue')
+                cprint('[*]Email: ', 'blue', end="")
+                user_email = input()
                 f = open("quiz.txt", "r",  encoding='utf-8-sig')
                 quizFile =f.readlines()
                 print(f.read())
+                problems_and_answers = {}
                 for math_equation in quizFile:
                     if math_equation =="\n":
                         continue
+                    problems_and_answers[math_equation] = mathResults(firgureMath(math_equation), math_equation)
                     cprint(f'[*]Problem: {math_equation}', 'blue')
                     cprint(f'[+]Results:{mathResults(firgureMath(math_equation), math_equation)}\n\n', 'green')
-
+                f.close()
+                f = open('blank.txt', 'w', encoding='utf-8-sig')
+                for k, v in problems_and_answers.items():
+                    f.write(f'Math Equation:{k}\nMath Results:{v}\n\n')
+                f.close()
+                f = open('blank.txt', 'r', encoding='utf-8-sig')
+                sendMail('william.johnson179@gaston.k12.nc.us', 'ilikecheese1234', [user_email], 'Blanko',  f.read())
 
         # Else, we subtract one from their attempts , and print it to the user
         else:
